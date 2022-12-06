@@ -21,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.getAccountById(accountId);
         if (account.getClientId().equals(clientId)) {
 
-            account.deposit(amount);
+            account.deposit(amount, clientId);
 
             accountRepository.saveAccount(account);
         }
@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
     public boolean withdraw(BigDecimal amount, Long accountId, Long clientId) {
         Account account = accountRepository.getAccountById(accountId);
         if (account.getClientId().equals(clientId)) {
-            Boolean result = account.withdraw(amount);
+            Boolean result = account.withdraw(amount, accountId);
 
             accountRepository.saveAccount(account);
             return result ;

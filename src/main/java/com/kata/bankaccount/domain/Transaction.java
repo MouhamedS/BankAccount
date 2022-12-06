@@ -1,10 +1,7 @@
 package com.kata.bankaccount.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
@@ -16,11 +13,11 @@ public class Transaction {
 
     private LocalDateTime date;
 
-    private Account account;
+    private Long accountId;
 
-    public Transaction(BigDecimal amount, LocalDateTime date, Account account) {
+    public Transaction(BigDecimal amount, LocalDateTime date, Long accountId) {
         this.amount = amount;
         this.date = date;
-        this.account = account;
+        this.accountId = accountId;
     }
 }
