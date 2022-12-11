@@ -1,35 +1,35 @@
 package com.kata.bankaccount.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-@Data
+@Getter
+@AllArgsConstructor
+@Builder
 public class Transaction {
 
     /***
      * Transaction Id
      */
-    private Long id;
+    //private final Long id;
 
     /**
      * Amount of the transaction
      */
-    private BigDecimal amount;
+    private final BigDecimal amount;
 
     /**
      * Date of the transaction
      */
-    private LocalDateTime date;
+    private final LocalDateTime date;
 
     /**
      * AccountId
      */
-    private Long accountId;
+    private final Client client;
 
-    public Transaction(BigDecimal amount, LocalDateTime date, Long accountId) {
-        this.amount = amount;
-        this.date = date;
-        this.accountId = accountId;
-    }
 }

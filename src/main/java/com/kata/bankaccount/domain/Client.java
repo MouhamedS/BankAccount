@@ -1,24 +1,26 @@
 package com.kata.bankaccount.domain;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-import javax.persistence.Id;
-
-@Data
+@Getter
+@AllArgsConstructor
+@Builder
 public class Client {
 
     /**
      * Client id
      */
-    private Long Id;
+    private final Long id;
 
     /**
      * Firstname of the client
      */
-    private String firstname;
+    private final String firstname;
 
     /**
      * Lastaname of the client
      */
-    private String lastName;
+    private final String lastName;
 }

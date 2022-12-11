@@ -1,43 +1,49 @@
 package com.kata.bankaccount.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
+@Getter
+@AllArgsConstructor
+@Builder
 public class Account {
 
     /**
      * Account Id
      */
-    private Long Id;
+    private final Long Id;
 
     /**
      * Balance aof the account
      */
-    private BigDecimal balance;
+    private final BigDecimal balance;
 
     /**
      * Threshold to limit the withdraw when the balance is negative
      */
-    private BigDecimal overdraftThreshold;
+    private final BigDecimal overdraftThreshold;
 
     /**
      * Owner of the account
      */
-    private Long clientId;
+    private final Client client;
 
     /**
      * List of all the transactions
      */
-    private List<Transaction> transactions = new ArrayList<>();
+    private final List<Transaction> transactions = new ArrayList<>();
 
-    public void deposit(BigDecimal amount, Long accountId) {
+    public void deposit(BigDecimal amount) {
         balance.add(amount);
-        Transaction transaction = new Transaction(amount, LocalDateTime.now(), accountId);
+        Transaction transaction = new Transaction(amount, LocalDateTime.now(), client);
         this.transactions.add(transaction);
     }
 
@@ -47,7 +53,7 @@ public class Account {
         }
         balance.subtract(amount);
 
-        Transaction transaction = new Transaction(amount.negate(), LocalDateTime.now(), accountId);
+        Transaction transaction = new Transaction(amount.negate(), LocalDateTime.now(), client);
 
         this.transactions.add(transaction);
 

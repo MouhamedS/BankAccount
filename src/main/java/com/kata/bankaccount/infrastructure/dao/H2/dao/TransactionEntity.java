@@ -1,0 +1,41 @@
+package com.kata.bankaccount.infrastructure.dao.H2.dao;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "TRANSACTION")
+@Data
+public class TransactionEntity {
+
+    /***
+     * Transaction Id
+     */
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ARTICLE_ID")
+    private Long id;
+
+    /**
+     * Amount of the transaction
+     */
+    @Column(name = "AMOUNT")
+    private BigDecimal amount;
+
+    /**
+     * Date of the transaction
+     */
+    @Column(name = "DATE")
+    private LocalDateTime date;
+
+    /**
+     * AccountId
+     */
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
+    private ClientEntity client;
+
+}

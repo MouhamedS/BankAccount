@@ -3,6 +3,7 @@ package com.kata.bankaccount.domain.service;
 import com.kata.bankaccount.domain.Transaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface AccountService {
 
@@ -17,10 +18,18 @@ public interface AccountService {
 
     /**
      * Method to withdraw a certain amount of the
-     * @param amount
-     * @param accountId
-     * @param clientId
-     * @return
+     * @param amount Amount to withdraw
+     * @param accountId AccountID  to withdraw
+     * @param clientId  ClientId
+     * @return True  if The withdrawal succeeded, false if the withdrawl  failed
      */
     boolean withdraw(BigDecimal amount, Long accountId, Long clientId);
+
+    /**
+     * Get List of account's transactions
+     * @param accountId AccountId of the
+     * @param clientId Client
+     * @return List of the transactions on an account for a client
+     */
+    List<Transaction> transactions(Long accountId, Long clientId);
 }
