@@ -1,15 +1,11 @@
 package com.kata.bankaccount.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Getter
-@AllArgsConstructor
-@Builder
+@RequiredArgsConstructor
 public class Transaction {
 
     /***

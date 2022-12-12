@@ -8,7 +8,7 @@ import org.mapstruct.MappingConstants;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface TransactionMapper {
+public interface TransactionResourceMapper {
 
     TransactionResource toResource(Transaction transaction);
 

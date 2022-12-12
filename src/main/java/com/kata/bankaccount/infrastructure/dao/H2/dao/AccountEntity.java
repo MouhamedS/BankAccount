@@ -1,7 +1,9 @@
 package com.kata.bankaccount.infrastructure.dao.H2.dao;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,6 +13,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "ACCOUNT")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountEntity {
 
     /**

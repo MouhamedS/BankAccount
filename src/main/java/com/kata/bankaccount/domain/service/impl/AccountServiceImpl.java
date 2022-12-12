@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
             Boolean result = account.withdraw(amount, accountId);
 
             accountRepository.saveAccount(account);
-            return result ;
+            return result;
         }
         return false;
     }

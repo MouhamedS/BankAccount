@@ -1,6 +1,8 @@
 package com.kata.bankaccount.infrastructure.dao.H2.dao;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TRANSACTION")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionEntity {
 
     /***

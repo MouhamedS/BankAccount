@@ -1,9 +1,7 @@
 package com.kata.bankaccount.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import com.kata.bankaccount.domain.error.AccountThresholdException;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,8 +10,7 @@ import java.util.List;
 
 
 @Getter
-@AllArgsConstructor
-@Builder
+@RequiredArgsConstructor
 public class Account {
 
     /**
@@ -49,7 +46,7 @@ public class Account {
 
     public boolean withdraw(BigDecimal amount, Long accountId) {
         if(balance.add(overdraftThreshold).compareTo(amount) < 0) {
-            return false;
+            throw  new AccountThresholdException("Account overdraft threshold has been reached");
         }
         balance.subtract(amount);
 
