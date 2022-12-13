@@ -10,45 +10,46 @@ import java.util.List;
 
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
     /**
      * Account Id
      */
-    private final Long Id;
+    private Long Id;
 
     /**
      * Balance aof the account
      */
-    private final BigDecimal balance;
+    private BigDecimal balance;
 
     /**
      * Threshold to limit the withdraw when the balance is negative
      */
-    private final BigDecimal overdraftThreshold;
+    private  BigDecimal overdraftThreshold;
 
     /**
      * Owner of the account
      */
-    private final Client client;
+    private  Client client;
 
     /**
      * List of all the transactions
      */
-    private final List<Transaction> transactions = new ArrayList<>();
+    private  List<Transaction> transactions = new ArrayList<>();
 
     public void deposit(BigDecimal amount) {
-        balance.add(amount);
+        balance = balance.add(amount);
         Transaction transaction = new Transaction(amount, LocalDateTime.now(), client);
         this.transactions.add(transaction);
     }
 
-    public boolean withdraw(BigDecimal amount, Long accountId) {
+    public boolean withdraw(BigDecimal amount) {
         if(balance.add(overdraftThreshold).compareTo(amount) < 0) {
             throw  new AccountThresholdException("Account overdraft threshold has been reached");
         }
-        balance.subtract(amount);
+        balance = balance.subtract(amount);
 
         Transaction transaction = new Transaction(amount.negate(), LocalDateTime.now(), client);
 

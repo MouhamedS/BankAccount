@@ -20,7 +20,7 @@ public class TransactionEntity {
      */
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ARTICLE_ID")
+    @Column(name = "TRANSACTION_ID")
     private Long id;
 
     /**

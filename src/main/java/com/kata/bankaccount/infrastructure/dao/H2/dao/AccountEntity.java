@@ -22,7 +22,7 @@ public class AccountEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ARTICLE_ID")
+    @Column(name = "ACCOUNT_ID")
     private Long Id;
 
     /**
@@ -40,13 +40,14 @@ public class AccountEntity {
     /**
      * Owner of the account
      */
-    @Column(name = "CLIENT")
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
     private ClientEntity client;
 
     /**
      * List of all the transactions
      */
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<TransactionEntity> transactions;
 
 }

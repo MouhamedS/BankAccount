@@ -18,7 +18,7 @@ public class ClientEntity {
      */
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ARTICLE_ID")
+    @Column(name = "CLIENT_ID")
     private Long Id;
 
     /**
@@ -28,7 +28,7 @@ public class ClientEntity {
     private String firstname;
 
     /**
-     * Lastaname of the client
+     * Lastname of the client
      */
     @Column(name = "LASTNAME")
     private String lastName;
