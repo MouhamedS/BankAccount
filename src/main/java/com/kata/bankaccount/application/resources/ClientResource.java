@@ -1,14 +1,9 @@
-package com.kata.bankaccount.domain;
+package com.kata.bankaccount.application.resources;
 
-import lombok.*;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Client {
-
+@Data
+public class ClientResource {
     /**
      * Client id
      */

@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -41,7 +42,11 @@ public class Account {
 
     public void deposit(BigDecimal amount) {
         balance = balance.add(amount);
-        Transaction transaction = new Transaction(amount, LocalDateTime.now(), client);
+        Transaction transaction = Transaction.builder()
+                .amount(amount)
+                .date(LocalDateTime.now())
+                .client(client)
+                .build();
         this.transactions.add(transaction);
     }
 
@@ -51,8 +56,11 @@ public class Account {
         }
         balance = balance.subtract(amount);
 
-        Transaction transaction = new Transaction(amount.negate(), LocalDateTime.now(), client);
-
+        Transaction transaction = Transaction.builder()
+                .amount(amount.negate())
+                .date(LocalDateTime.now())
+                .client(client)
+                .build();
         this.transactions.add(transaction);
 
         return true;

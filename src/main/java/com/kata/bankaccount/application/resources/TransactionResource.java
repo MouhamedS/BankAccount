@@ -1,8 +1,11 @@
 package com.kata.bankaccount.application.resources;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 public class TransactionResource {
 
     /***
@@ -23,6 +26,6 @@ public class TransactionResource {
     /**
      * AccountId
      */
-    private Long accountId;
+    private ClientResource client;
 
 }

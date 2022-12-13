@@ -5,27 +5,30 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Getter
-@RequiredArgsConstructor
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Transaction {
 
     /***
      * Transaction Id
      */
-    //private final Long id;
+    private  Long id;
 
     /**
      * Amount of the transaction
      */
-    private final BigDecimal amount;
+    private BigDecimal amount;
 
     /**
      * Date of the transaction
      */
-    private final LocalDateTime date;
+    private LocalDateTime date;
 
     /**
      * AccountId
      */
-    private final Client client;
+    private Client client;
 
 }
