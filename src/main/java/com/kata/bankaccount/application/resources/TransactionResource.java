@@ -1,5 +1,6 @@
 package com.kata.bankaccount.application.resources;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class TransactionResource {
     /**
      * Amount of the transaction
      */
+    @Schema(description = "Amount of transaction")
     private BigDecimal amount;
 
     /**

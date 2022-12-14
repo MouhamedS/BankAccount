@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler( DefaultControllerException.class)
-    public ResponseEntity< DefaultErrorMessage> handleDefaultError(DefaultControllerException e) {
+    public ResponseEntity<DefaultErrorMessage> handleDefaultError(DefaultControllerException e) {
 
         log.info(e.getDefaultErrorMessage().getMessage());
         return ResponseEntity.status(e.getDefaultErrorMessage().getStatus()).body(e.getDefaultErrorMessage());
