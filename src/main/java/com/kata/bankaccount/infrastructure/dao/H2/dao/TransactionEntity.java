@@ -19,7 +19,7 @@ public class TransactionEntity {
      * Transaction Id
      */
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TRANSACTION_ID")
     private Long id;
 
@@ -35,11 +35,18 @@ public class TransactionEntity {
     @Column(name = "DATE")
     private LocalDateTime date;
 
+    @Column(name = "BALANCE_POST_TRANSACTION")
+    private BigDecimal balancePostTransaction;
+
     /**
      * AccountId
      */
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID")
     private ClientEntity client;
+
+    @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AccountEntity account;
 
 }

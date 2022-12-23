@@ -1,6 +1,7 @@
 package com.kata.bankaccount.domain;
 
 import com.kata.bankaccount.domain.error.AccountThresholdException;
+import com.kata.bankaccount.domain.error.AccountTransactionException;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -41,16 +42,23 @@ public class Account {
     private  List<Transaction> transactions = new ArrayList<>();
 
     public void deposit(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new AccountTransactionException("Cannot deposit an amount less than 0");
+        }
         balance = balance.add(amount);
         Transaction transaction = Transaction.builder()
                 .amount(amount)
                 .date(LocalDateTime.now())
                 .client(client)
+                .balancePostTransaction(balance)
                 .build();
         this.transactions.add(transaction);
     }
 
     public boolean withdraw(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new AccountTransactionException("Cannot withdraw an amount less than 0");
+        }
         if(balance.add(overdraftThreshold).compareTo(amount) < 0) {
             throw  new AccountThresholdException("Account overdraft threshold has been reached");
         }
@@ -60,6 +68,7 @@ public class Account {
                 .amount(amount.negate())
                 .date(LocalDateTime.now())
                 .client(client)
+                .balancePostTransaction(balance)
                 .build();
         this.transactions.add(transaction);
 

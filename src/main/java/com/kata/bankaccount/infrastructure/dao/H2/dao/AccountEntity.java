@@ -21,7 +21,7 @@ public class AccountEntity {
      * Account Id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_ID")
     private Long Id;
 
@@ -47,7 +47,7 @@ public class AccountEntity {
     /**
      * List of all the transactions
      */
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions;
 
 }

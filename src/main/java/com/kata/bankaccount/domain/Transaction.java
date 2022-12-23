@@ -26,6 +26,8 @@ public class Transaction {
      */
     private LocalDateTime date;
 
+    private BigDecimal balancePostTransaction;
+
     /**
      * AccountId
      */

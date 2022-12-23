@@ -70,9 +70,9 @@ public class AccountServiceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {3000, 2000, 5000, 7000})
-    public void withdrawWrongAmount(int number) {
+    public void withdrawWrongAmount(int amount) {
        when(accountRepository.getAccountById(isNotNull())).thenReturn(account);
-        Assertions.assertThatThrownBy(() -> accountService.withdraw(BigDecimal.valueOf(number), account.getId(), client.getId()))
+        Assertions.assertThatThrownBy(() -> accountService.withdraw(BigDecimal.valueOf(amount), account.getId(), client.getId()))
                 .isInstanceOf(AccountThresholdException.class)
                 .hasMessage("Account overdraft threshold has been reached");
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500));
