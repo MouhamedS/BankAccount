@@ -39,6 +39,9 @@ public class AccountController {
     @Operation(summary = "Deposit on bank account")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deposit done"),
+            @ApiResponse(responseCode = "400", description = "Invalid Transaction", content = {
+                    @Content
+            }),
             @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
                     @Content
             }),
@@ -57,6 +60,9 @@ public class AccountController {
     @Operation(summary = "Withdraw from bank account")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Withdraw done"),
+            @ApiResponse(responseCode = "400", description = "Invalid Transaction", content = {
+                    @Content
+            }),
             @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
                     @Content
             }),
@@ -78,7 +84,7 @@ public class AccountController {
                     @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = TransactionResource.class)))
             }),
-            @ApiResponse(responseCode = "402", description = "Account or Client not Founf", content = {
+            @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
                     @Content
             }),
             @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)

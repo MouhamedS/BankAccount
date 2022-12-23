@@ -1,6 +1,7 @@
 package com.kata.bankaccount.application.exceptions;
 
 import com.kata.bankaccount.domain.error.AccountThresholdException;
+import com.kata.bankaccount.domain.error.AccountTransactionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class GlobalException extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(e.getDefaultErrorMessage().getStatus()).body(e.getDefaultErrorMessage());
     }
 
-    @ExceptionHandler( AccountThresholdException.class)
-    public ResponseEntity<String> handleThresholdViolation(AccountThresholdException e) {
+    @ExceptionHandler( {AccountThresholdException.class, AccountTransactionException.class})
+    public ResponseEntity<String> handleThresholdViolation(RuntimeException e) {
 
         log.info(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

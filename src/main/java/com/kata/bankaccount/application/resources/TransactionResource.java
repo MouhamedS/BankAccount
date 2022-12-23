@@ -1,5 +1,6 @@
 package com.kata.bankaccount.application.resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -25,9 +26,6 @@ public class TransactionResource {
      */
     private LocalDateTime date;
 
-    /**
-     * AccountId
-     */
-    private ClientResource client;
+    private BigDecimal balancePostTransaction;
 
 }
