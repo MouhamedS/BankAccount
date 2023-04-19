@@ -1,10 +1,20 @@
+image: maven:latest
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+cache:
+  paths:
+    - .m2/repository/
+    - target/
 stages:
   - build
   - test
 build-job:
   stage: build
-  script: ./mvnw clean package
+  script:
+    - mvn clean package
 
 test-job:
   stage: test
-  script: ./mvnw test
+  script:
+    - mvn test
