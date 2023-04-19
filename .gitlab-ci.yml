@@ -23,4 +23,5 @@ test-job:
 build-image:
   stage: image
   script:
+    - apt-get install docker
     - docker build -t kata:bank-account .
