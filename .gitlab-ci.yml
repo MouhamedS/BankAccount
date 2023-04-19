@@ -12,9 +12,9 @@ stages:
 build-job:
   stage: build
   script:
-    - mvn $MAVEN_CLI_OPTS clean package
+    - mvn clean package
 
 test-job:
   stage: test
   script:
-    - mvn $MAVEN_CLI_OPTS test
+    - mvn test
