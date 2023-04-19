@@ -9,6 +9,7 @@ cache:
 stages:
   - build
   - test
+  - image
 build-job:
   stage: build
   script:
@@ -18,3 +19,8 @@ test-job:
   stage: test
   script:
     - mvn test
+
+build-image:
+  stage: image
+  script:
+    - docker build -t kata:bank-account .
