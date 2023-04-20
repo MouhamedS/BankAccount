@@ -13,7 +13,10 @@ stages:
 build-job:
   stage: build
   script:
-    - mvn clean package
+    - mvn clean package -Dmaven.test.skip=true
+  artifacts:
+    paths:
+      - target/
 
 test-job:
   stage: test
