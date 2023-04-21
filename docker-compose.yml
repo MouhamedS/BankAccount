@@ -1,7 +1,6 @@
 version: "3.9"
 services:
   bank-account:
-    build: .
-   # image: registry.gitlab.com/exalt-it-dojo/labo/bank-account-devopsed/mouhamed:latest
+    image: registry.gitlab.com/exalt-it-dojo/labo/bank-account-devopsed/mouhamed:latest
     ports:
       - "8080:8080"
