@@ -42,10 +42,12 @@ build-image:
 deploy-job:
   stage: deploy
   image: docker:latest
+  services:
+    - docker:20.10.16-dind
   tags:
     - gitlab-org-docker
   before_script:
     - docker info
-    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - echo "$DOCKER_REGISTRY_PASS" | docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
   script:
     - echo "connect to repository registry"
