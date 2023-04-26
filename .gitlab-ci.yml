@@ -41,10 +41,10 @@ build-image:
 
 deploy-job:
   stage: deploy
-  services:
-    - docker:dind
+#  services:
+#    - docker:dind
   tags:
-    - mouhamed-runner
+    - gitlab-org-docker
   before_script:
     - docker info
     - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
