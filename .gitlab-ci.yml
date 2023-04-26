@@ -41,8 +41,7 @@ build-image:
 
 deploy-job:
   stage: deploy
-  services:
-    - docker:dind
+  image: docker:latest
   tags:
     - gitlab-org-docker
   before_script:
