@@ -41,13 +41,19 @@ build-image:
 
 deploy-job:
   stage: deploy
-  image: docker:latest
-  services:
-    - docker:20.10.16-dind
+  image: maven:latest
+#  services:
+#    - docker:20.10.16-dind
   tags:
-    - gitlab-org-docker
+    - mouhamed-runner
   before_script:
     - docker info
     - echo "$CI_DEPLOY_PASSWORD" | docker login $CI_REGISTRY -u $CI_DEPLOY_USER --password-stdin
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "echo "$CI_DEPLOY_PASSWORD" | docker login $CI_REGISTRY -u $CI_DEPLOY_USER --password-stdin"
+ #   - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull ${CI_REGISTRY_IMAGE}:latest"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker-compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up"
   script:
     - echo "connect to repository registry"
+  environment:
+    name: production
+    url: http://$SERVER_IP
