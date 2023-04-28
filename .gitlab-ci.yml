@@ -41,9 +41,9 @@ build-image:
 
 deploy-job:
   stage: deploy
-  image: maven:latest
-#  services:
-#    - docker:20.10.16-dind
+  image: docker:latest
+  services:
+   - docker:20.10.16-dind
   tags:
     - mouhamed-runner
   before_script:
