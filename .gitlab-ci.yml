@@ -1,43 +1,39 @@
-#image: maven:latest
-#variables:
-#  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-#  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-#cache:
-#  paths:
-#    - .m2/repository/
-#
-#stages:
-#  - build
-#  - test
-#  - image
-#  - deploy
-#build-job:
-#  stage: build
-#  image: maven:latest
-#  script:
-#    - mvn clean package -Dmaven.test.skip=true
-#  artifacts:
-#    paths:
-#      - target/
-#
-#test-job:
-#  stage: test
-#  image: maven:latest
-#  script:
-#    - mvn test
-#
-#build-image:
-#  stage: image
-#  image:
-#    name: gcr.io/kaniko-project/executor:v1.9.2-debug
-#    entrypoint: [""]
-#  rules:
-#    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-#  script:
-#    - /kaniko/executor
-#      --context "${CI_PROJECT_DIR}"
-#      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-#      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+cache:
+  paths:
+    - .m2/repository/
+
+stages:
+  - build
+  - test
+  - image
+  - deploy
+build-job:
+  stage: build
+  image: maven:latest
+  script:
+    - mvn clean package -Dmaven.test.skip=true
+  artifacts:
+    paths:
+      - target/
+
+test-job:
+  stage: test
+  image: maven:latest
+  script:
+    - mvn test
+
+build-image:
+  stage: image
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.2-debug
+    entrypoint: [""]
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
 
 deploy-job:
   stage: deploy
@@ -47,11 +43,9 @@ deploy-job:
   tags:
     - mouhamed-runner
   before_script:
-    #- docker info
     - apk update && apk add openssh-client
-    - echo "$CI_DEPLOY_PASSWORD" | docker login $CI_REGISTRY -u $CI_DEPLOY_USER --password-stdin
     - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login $CI_REGISTRY -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD"
-    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker-compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up"
   script:
     - echo "connect to repository registry"
   environment:
