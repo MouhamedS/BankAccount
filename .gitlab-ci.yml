@@ -42,7 +42,6 @@ deploy-job:
   before_script:
     - echo "$CI_DEPLOY_PASSWORD" | docker login $CI_REGISTRY -u $CI_DEPLOY_USER --password-stdin
   script:
-    #- echo "connect to repository registry"
-    - docker compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up
+    - docker compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up -d
   environment:
     name: docker-local
