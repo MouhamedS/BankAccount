@@ -1,4 +1,4 @@
-package com.kata.bankaccount.application.adapter;
+package com.kata.bankaccount.application.adapters;
 
 import com.kata.bankaccount.domain.model.Account;
 import com.kata.bankaccount.domain.model.Transaction;

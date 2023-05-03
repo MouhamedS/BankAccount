@@ -1,7 +1,8 @@
-package com.kata.bankaccount.infrastructure.dao.H2;
+package com.kata.bankaccount.infrastructure.adapters;
 
 import com.kata.bankaccount.domain.model.Account;
 import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
+import com.kata.bankaccount.infrastructure.dao.H2.JpaRepository.AccountJpARepository;
 import com.kata.bankaccount.infrastructure.dao.H2.dao.AccountEntity;
 import com.kata.bankaccount.infrastructure.dao.H2.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;

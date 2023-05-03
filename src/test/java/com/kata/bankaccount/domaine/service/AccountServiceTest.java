@@ -6,7 +6,7 @@ import com.kata.bankaccount.domain.model.Transaction;
 import com.kata.bankaccount.domain.error.AccountThresholdException;
 import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
 import com.kata.bankaccount.domain.ports.incoming.AccountService;
-import com.kata.bankaccount.application.adapter.AccountServiceAdapter;
+import com.kata.bankaccount.application.adapters.AccountServiceAdapter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
