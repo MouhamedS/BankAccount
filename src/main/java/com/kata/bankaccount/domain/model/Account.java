@@ -46,11 +46,7 @@ public class Account {
             throw new AccountTransactionException("Cannot deposit an amount less than 0");
         }
         balance = balance.add(amount);
-        Transaction transaction = Transaction.builder()
-                .amount(amount)
-                .date(LocalDateTime.now())
-                .balancePostTransaction(balance)
-                .build();
+        Transaction transaction = new Transaction(null, amount, LocalDateTime.now(),balance);
         this.transactions.add(transaction);
     }
 
@@ -63,11 +59,8 @@ public class Account {
         }
         balance = balance.subtract(amount);
 
-        Transaction transaction = Transaction.builder()
-                .amount(amount.negate())
-                .date(LocalDateTime.now())
-                .balancePostTransaction(balance)
-                .build();
+        Transaction transaction = new Transaction(null, amount.negate(), LocalDateTime.now(),balance);
+
         this.transactions.add(transaction);
 
         return true;

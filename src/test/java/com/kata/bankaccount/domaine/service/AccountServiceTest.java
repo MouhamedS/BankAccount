@@ -50,20 +50,20 @@ public class AccountServiceTest {
     @ValueSource(ints = {200, 300, 500, 700})
     public void depositTest(int number) {
         when(accountRepository.getAccountById(isNotNull())).thenReturn(account);
-        accountService.deposit(BigDecimal.valueOf(number), account.getId(), client.getId());
+        accountService.deposit(BigDecimal.valueOf(number), account.getId(), client.id());
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 + number));
         Assertions.assertThat(account.getTransactions().size()).isEqualTo(1);
-        Assertions.assertThat(account.getTransactions().get(0).getAmount()).isEqualTo(BigDecimal.valueOf(number));
+        Assertions.assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1000, 300, 500, 700})
     public void withdrawGoodAmount(int number) {
         when(accountRepository.getAccountById(isNotNull())).thenReturn(account);
-        accountService.withdraw(BigDecimal.valueOf(number), account.getId(), client.getId());
+        accountService.withdraw(BigDecimal.valueOf(number), account.getId(), client.id());
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 - number ));
         Assertions.assertThat(account.getTransactions().size()).isEqualTo(1);
-        Assertions.assertThat(account.getTransactions().get(0).getAmount()).isEqualTo(BigDecimal.valueOf(number).negate());
+        Assertions.assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number).negate());
 
     }
 
@@ -72,7 +72,7 @@ public class AccountServiceTest {
     @ValueSource(ints = {3000, 2000, 5000, 7000})
     public void withdrawWrongAmount(int amount) {
        when(accountRepository.getAccountById(isNotNull())).thenReturn(account);
-        Assertions.assertThatThrownBy(() -> accountService.withdraw(BigDecimal.valueOf(amount), account.getId(), client.getId()))
+        Assertions.assertThatThrownBy(() -> accountService.withdraw(BigDecimal.valueOf(amount), account.getId(), client.id()))
                 .isInstanceOf(AccountThresholdException.class)
                 .hasMessage("Account overdraft threshold has been reached");
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500));
@@ -82,12 +82,12 @@ public class AccountServiceTest {
     @Test
     public void getListTransactions(){
         when(accountRepository.getAccountById(isNotNull())).thenReturn(account);
-        accountService.withdraw(BigDecimal.valueOf(100), account.getId(), client.getId());
-        accountService.withdraw(BigDecimal.valueOf(500), account.getId(), client.getId());
-        accountService.withdraw(BigDecimal.valueOf(600), account.getId(), client.getId());
-        accountService.deposit(BigDecimal.valueOf(1000), account.getId(), client.getId());
-        accountService.deposit(BigDecimal.valueOf(500), account.getId(), client.getId());
-        Assertions.assertThat(accountService.transactions(account.getClient().getId(), account.getId()).size()).isEqualTo(5);
+        accountService.withdraw(BigDecimal.valueOf(100), account.getId(), client.id());
+        accountService.withdraw(BigDecimal.valueOf(500), account.getId(), client.id());
+        accountService.withdraw(BigDecimal.valueOf(600), account.getId(), client.id());
+        accountService.deposit(BigDecimal.valueOf(1000), account.getId(), client.id());
+        accountService.deposit(BigDecimal.valueOf(500), account.getId(), client.id());
+        Assertions.assertThat(accountService.transactions(account.getClient().id(), account.getId()).size()).isEqualTo(5);
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1800));
     }
 }

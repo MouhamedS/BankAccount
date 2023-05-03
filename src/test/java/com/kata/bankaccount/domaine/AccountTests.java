@@ -37,7 +37,7 @@ public class AccountTests {
         account.deposit(BigDecimal.valueOf(number));
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 + number));
         Assertions.assertThat(account.getTransactions().size()).isEqualTo(1);
-        Assertions.assertThat(account.getTransactions().get(0).getAmount()).isEqualTo(BigDecimal.valueOf(number));
+        Assertions.assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number));
     }
 
 
@@ -47,7 +47,7 @@ public class AccountTests {
         Assertions.assertThat(account.withdraw(BigDecimal.valueOf(number))).isTrue();
         Assertions.assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 - number ));
         Assertions.assertThat(account.getTransactions().size()).isEqualTo(1);
-        Assertions.assertThat(account.getTransactions().get(0).getAmount()).isEqualTo(BigDecimal.valueOf(number).negate());
+        Assertions.assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number).negate());
 
     }
 
