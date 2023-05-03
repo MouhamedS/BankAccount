@@ -1,4 +1,4 @@
-package com.kata.bankaccount.domain;
+package com.kata.bankaccount.domain.model;
 
 import com.kata.bankaccount.domain.error.AccountThresholdException;
 import com.kata.bankaccount.domain.error.AccountTransactionException;
@@ -27,7 +27,7 @@ public class Account {
     private BigDecimal balance;
 
     /**
-     * Threshold to limit the withdraw when the balance is negative
+     * Threshold to limit the withdrawal when the balance is negative
      */
     private  BigDecimal overdraftThreshold;
 
@@ -49,7 +49,6 @@ public class Account {
         Transaction transaction = Transaction.builder()
                 .amount(amount)
                 .date(LocalDateTime.now())
-                .client(client)
                 .balancePostTransaction(balance)
                 .build();
         this.transactions.add(transaction);
@@ -67,7 +66,6 @@ public class Account {
         Transaction transaction = Transaction.builder()
                 .amount(amount.negate())
                 .date(LocalDateTime.now())
-                .client(client)
                 .balancePostTransaction(balance)
                 .build();
         this.transactions.add(transaction);

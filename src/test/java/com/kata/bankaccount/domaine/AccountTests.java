@@ -1,12 +1,11 @@
 package com.kata.bankaccount.domaine;
 
-import com.kata.bankaccount.domain.Account;
-import com.kata.bankaccount.domain.Client;
-import com.kata.bankaccount.domain.Transaction;
+import com.kata.bankaccount.domain.model.Account;
+import com.kata.bankaccount.domain.model.Client;
+import com.kata.bankaccount.domain.model.Transaction;
 import com.kata.bankaccount.domain.error.AccountThresholdException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

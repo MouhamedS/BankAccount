@@ -1,6 +1,6 @@
 package com.kata.bankaccount.infrastructure.dao.H2.mapper;
 
-import com.kata.bankaccount.domain.Client;
+import com.kata.bankaccount.domain.model.Client;
 import com.kata.bankaccount.infrastructure.dao.H2.dao.ClientEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

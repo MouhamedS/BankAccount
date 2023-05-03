@@ -1,12 +1,12 @@
 package com.kata.bankaccount.domaine.service;
 
-import com.kata.bankaccount.domain.Account;
-import com.kata.bankaccount.domain.Client;
-import com.kata.bankaccount.domain.Transaction;
+import com.kata.bankaccount.domain.model.Account;
+import com.kata.bankaccount.domain.model.Client;
+import com.kata.bankaccount.domain.model.Transaction;
 import com.kata.bankaccount.domain.error.AccountThresholdException;
-import com.kata.bankaccount.domain.repository.AccountRepository;
-import com.kata.bankaccount.domain.service.AccountService;
-import com.kata.bankaccount.domain.service.impl.AccountServiceImpl;
+import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
+import com.kata.bankaccount.domain.ports.incoming.AccountService;
+import com.kata.bankaccount.application.adapter.AccountServiceAdapter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ public class AccountServiceTest {
         client = new Client(1L, "Toto", "Titi");
         transactions = new ArrayList<>();
         account = new Account(1L, BigDecimal.valueOf(1500), BigDecimal.valueOf(100), client, transactions);
-        accountService = new AccountServiceImpl(accountRepository);
+        accountService = new AccountServiceAdapter(accountRepository);
     }
 
     @ParameterizedTest

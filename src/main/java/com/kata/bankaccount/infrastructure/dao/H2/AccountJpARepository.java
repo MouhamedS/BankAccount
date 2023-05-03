@@ -1,6 +1,5 @@
 package com.kata.bankaccount.infrastructure.dao.H2;
 
-import com.kata.bankaccount.domain.Account;
 import com.kata.bankaccount.infrastructure.dao.H2.dao.AccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

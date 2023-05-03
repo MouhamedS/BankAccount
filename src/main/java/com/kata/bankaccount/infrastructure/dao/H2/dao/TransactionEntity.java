@@ -41,11 +41,8 @@ public class TransactionEntity {
     /**
      * AccountId
      */
-    @ManyToOne
-    @JoinColumn(name = "CLIENT_ID")
-    private ClientEntity client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ACCOUNT_ID")
     private AccountEntity account;
 

@@ -17,7 +17,6 @@ create table account (
         amount numeric(19,2),
         BALANCE_POST_TRANSACTION numeric(19,2),
         date timestamp,
-        client_id bigint,
         ACCOUNT_ID bigint
 
     );

@@ -1,6 +1,6 @@
-package com.kata.bankaccount.domain.service;
+package com.kata.bankaccount.domain.ports.incoming;
 
-import com.kata.bankaccount.domain.Transaction;
+import com.kata.bankaccount.domain.model.Transaction;
 
 import java.math.BigDecimal;
 import java.util.List;

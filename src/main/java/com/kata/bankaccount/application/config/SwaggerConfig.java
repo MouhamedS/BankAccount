@@ -1,4 +1,4 @@
-package com.kata.bankaccount.application.swagger;
+package com.kata.bankaccount.application.config;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;

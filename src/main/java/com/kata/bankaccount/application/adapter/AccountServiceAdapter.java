@@ -1,22 +1,22 @@
-package com.kata.bankaccount.domain.service.impl;
+package com.kata.bankaccount.application.adapter;
 
-import com.kata.bankaccount.domain.Account;
-import com.kata.bankaccount.domain.Transaction;
-import com.kata.bankaccount.domain.repository.AccountRepository;
-import com.kata.bankaccount.domain.service.AccountService;
+import com.kata.bankaccount.domain.model.Account;
+import com.kata.bankaccount.domain.model.Transaction;
+import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
+import com.kata.bankaccount.domain.ports.incoming.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceAdapter implements AccountService {
 
     private final AccountRepository accountRepository;
 
@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
         if (account != null && account.getClient().getId().equals(clientId)) {
             return account.getTransactions();
         }
-        return null;
+        return new ArrayList<>();
     }
 
 

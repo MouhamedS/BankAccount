@@ -3,7 +3,7 @@ package com.kata.bankaccount.application;
 
 import com.kata.bankaccount.application.mapper.TransactionResourceMapper;
 import com.kata.bankaccount.application.resources.TransactionResource;
-import com.kata.bankaccount.domain.service.AccountService;
+import com.kata.bankaccount.domain.ports.incoming.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
