@@ -19,7 +19,7 @@ public class ClientEntity {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLIENT_ID")
-    private Long Id;
+    private Long id;
 
     /**
      * Firstname of the client

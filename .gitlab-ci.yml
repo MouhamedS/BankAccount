@@ -42,6 +42,6 @@ deploy-job:
   before_script:
     - echo "$CI_DEPLOY_PASSWORD" | docker login $CI_REGISTRY -u $CI_DEPLOY_USER --password-stdin
   script:
-    - docker compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up -d
+    - docker compose  -f ${CI_PROJECT_DIR}/docker-compose.yml up --force-recreate -d --remove-orphans
   environment:
     name: docker-local

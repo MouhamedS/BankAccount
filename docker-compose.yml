@@ -1,6 +1,113 @@
 version: "3.9"
+
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   bank-account:
-    image: registry.gitlab.com/exalt-it-dojo/labo/bank-account-devopsed/mouhamed:latest
+    build: .
+    #image: registry.gitlab.com/exalt-it-dojo/labo/bank-account-devopsed/mouhamed:latest
     ports:
       - "8080:8080"
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_REPLICATION_MODE=master
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    ports:
+      - '6379:6379'
+  redis_node_1:
+    image: bitnami/redis:latest
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis
+      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_MASTER_PASSWORD=str0ng_passw0rd
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    #command: redis-server --slaveof redis-master 6379
+    links:
+      - redis:redis-master
+    ports:
+      - '6378:6379'
+
+  redis_node_2:
+    image: bitnami/redis:latest
+    environment:
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_HOST=redis
+      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_MASTER_PASSWORD=str0ng_passw0rd
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    #command: redis-server --slaveof redis-master 6379
+    links:
+      - redis:redis-master
+    ports:
+      - '6380:6379'
+  sentinel_1:
+    image: bitnami/redis-sentinel:latest
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26379
+      - REDIS_SENTINEL_RESOLVE_HOSTNAMES=yes
+      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_MASTER_PASSWORD=str0ng_passw0rd
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    ports:
+      - "26378:26379"
+    links:
+      - redis:redis-master
+      - redis_node_1
+      - redis_node_2
+    depends_on:
+      - bank-account
+      - redis
+      - redis_node_1
+      - redis_node_2
+  sentinel_2:
+    image: bitnami/redis-sentinel:latest
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26379
+      - REDIS_SENTINEL_RESOLVE_HOSTNAMES=yes
+      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_MASTER_PASSWORD=str0ng_passw0rd
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    ports:
+      - "26379:26379"
+    links:
+      - redis:redis-master
+      - redis_node_1
+      - redis_node_2
+    depends_on:
+      - bank-account
+      - redis
+      - redis_node_1
+      - redis_node_2
+  sentinel_3:
+    image: bitnami/redis-sentinel:latest
+    environment:
+      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=5000
+      - REDIS_SENTINEL_FAILOVER_TIMEOUT=5000
+      - REDIS_SENTINEL_QUORUM=2
+      - REDIS_SENTINEL_PORT_NUMBER=26379
+      - REDIS_SENTINEL_RESOLVE_HOSTNAMES=yes
+      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_MASTER_PASSWORD=str0ng_passw0rd
+#      - REDIS_PASSWORD=str0ng_passw0rd
+    ports:
+      - "26380:26379"
+    links:
+      - redis:redis-master
+      - redis_node_1
+      - redis_node_2
+    depends_on:
+      - bank-account
+      - redis
+      - redis_node_1
+      - redis_node_2

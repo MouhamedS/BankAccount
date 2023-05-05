@@ -13,18 +13,18 @@ INSERT INTO account(account_id, balance, overdraft_threshold,client_id) values (
 INSERT INTO account(account_id, balance, overdraft_threshold,client_id) values (5, 100, 0, 5);
 
 -- TRANSACTIONS --
-INSERT INTO transaction(amount, date ,client_id, account_id , BALANCE_POST_TRANSACTION) VALUES( 100, CURRENT_TIMESTAMP -3, 1, 600);
-INSERT INTO transaction(amount, date ,client_id , account_id, BALANCE_POST_TRANSACTION) VALUES( -200, CURRENT_TIMESTAMP -3, 1, 400);
-INSERT INTO transaction(amount, date ,client_id , account_id, BALANCE_POST_TRANSACTION) VALUES( 150, CURRENT_TIMESTAMP, 1, 550);
+INSERT INTO transaction(amount, date , account_id , BALANCE_POST_TRANSACTION) VALUES( 100, CURRENT_TIMESTAMP -3, 1, 600);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION) VALUES( -200, CURRENT_TIMESTAMP -3, 1, 400);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION) VALUES( 150, CURRENT_TIMESTAMP, 1, 550);
 
-INSERT INTO transaction(amount, date ,client_id, account_id , BALANCE_POST_TRANSACTION) VALUES( -500, CURRENT_TIMESTAMP -3, 2, 1000);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( -200, CURRENT_TIMESTAMP -3, 2,800);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -2, 2, 950);
+INSERT INTO transaction(amount, date , account_id , BALANCE_POST_TRANSACTION) VALUES( -500, CURRENT_TIMESTAMP -3, 2, 1000);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( -200, CURRENT_TIMESTAMP -3, 2,800);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -2, 2, 950);
 
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( -500, CURRENT_TIMESTAMP -1, 3, 2000);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( -200, CURRENT_TIMESTAMP -2, 3, 1800);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -3, 3, 1950);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( -500, CURRENT_TIMESTAMP -1, 3, 2000);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( -200, CURRENT_TIMESTAMP -2, 3, 1800);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -3, 3, 1950);
 
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( -15000, CURRENT_TIMESTAMP -1, 4, 5000);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( -2000, CURRENT_TIMESTAMP -2, 3, 3000);
-INSERT INTO transaction(amount, date ,client_id, account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -3, 3, 3150);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( -15000, CURRENT_TIMESTAMP -1, 4, 5000);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( -2000, CURRENT_TIMESTAMP -2, 3, 3000);
+INSERT INTO transaction(amount, date , account_id, BALANCE_POST_TRANSACTION ) VALUES( 150, CURRENT_TIMESTAMP -3, 3, 3150);

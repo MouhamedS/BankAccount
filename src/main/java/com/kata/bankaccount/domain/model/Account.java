@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -19,7 +18,7 @@ public class Account {
     /**
      * Account Id
      */
-    private Long Id;
+    private Long id;
 
     /**
      * Balance aof the account

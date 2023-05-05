@@ -26,10 +26,6 @@ create table account (
        foreign key (client_id)
        references client;
 
-    alter table transaction
-       add constraint foreign_key_client_transaction
-       foreign key (client_id)
-       references client;
 
     alter table transaction
        add constraint foreign_key_account_transaction

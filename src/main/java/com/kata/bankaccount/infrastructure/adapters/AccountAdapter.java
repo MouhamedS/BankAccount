@@ -6,6 +6,7 @@ import com.kata.bankaccount.infrastructure.dao.H2.JpaRepository.AccountJpAReposi
 import com.kata.bankaccount.infrastructure.dao.H2.dao.AccountEntity;
 import com.kata.bankaccount.infrastructure.dao.H2.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,6 +26,7 @@ public class AccountAdapter implements AccountRepository {
     }
 
     @Override
+    @Cacheable(cacheNames = "account", key = "{#account.id, #account.balance}", unless = "#result == null")
     public Account saveAccount(Account account) {
         AccountEntity entity = accountMapper.toEntity(account);
         // Set Account for transactions

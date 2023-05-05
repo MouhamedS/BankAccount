@@ -65,7 +65,7 @@ public class AccountController {
             @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
                     @Content
             }),
-            @ApiResponse(responseCode = "500", description = "Internal erro", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
 
     })
     @PostMapping(value = "/{accountId}/clients/{clientId}/withdraw/{amount}")
