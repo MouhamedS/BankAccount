@@ -6,7 +6,7 @@ networks:
 
 services:
   bank-account:
-    build: registry.gitlab.com/exalt-it-dojo/labo/bank-account-devopsed/mouhamed:latest
+    build: .
     ports:
       - "8080:8080"
   redis:

@@ -44,6 +44,7 @@ public class RedisConfig implements CachingConfigurer {
     protected LettuceConnectionFactory lettuceConnectionFactory(){
         RedisSentinelConfiguration sentinelConfiguration = new RedisSentinelConfiguration()
                 .master(redisProperties.getSentinel().getMaster());
+
         redisProperties.getSentinel().getNodes().forEach(s -> sentinelConfiguration.sentinel(s, redisProperties.getPort()));
         sentinelConfiguration.setPassword(RedisPassword.of(redisProperties.getPassword()));
 
@@ -56,7 +57,7 @@ public class RedisConfig implements CachingConfigurer {
     public RedisTemplate<String, Object> redisTemplate() {
         final RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashKeySerializer(new GenericToStringSerializer<Object>(Object.class));
+        redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(Object.class));
         redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setConnectionFactory(lettuceConnectionFactory());
@@ -66,8 +67,7 @@ public class RedisConfig implements CachingConfigurer {
 
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        serializer.setObjectMapper(objectMapper());
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(objectMapper(), Object.class);
         return RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(redisTimeToLive))
                 .disableCachingNullValues()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
