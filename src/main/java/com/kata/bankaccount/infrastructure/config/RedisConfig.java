@@ -37,7 +37,7 @@ public class RedisConfig implements CachingConfigurer {
     @Value("${spring.cache.time-to-live}")
     private long redisTimeToLive;
 
-    @Value("${spring.redis.timeout}")
+    @Value("${spring.data.redis.timeout}")
     private Duration redisCommandTimeOut;
 
     @Bean

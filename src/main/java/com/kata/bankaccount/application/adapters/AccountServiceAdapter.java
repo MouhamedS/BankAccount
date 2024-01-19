@@ -49,7 +49,7 @@ public class AccountServiceAdapter implements AccountService {
 
     @Override
     public List<Transaction> transactions(Long accountId, Long clientId) {
-        log.info("Service fecth transactions with accountId {} and clientId {}", clientId, accountId);
+        log.info("Service fetch transactions with accountId {} and clientId {}", clientId, accountId);
         Account account = accountRepository.getAccountById(accountId);
         if (account != null && account.getClient().id().equals(clientId)) {
             return account.getTransactions();

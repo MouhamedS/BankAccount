@@ -2,9 +2,7 @@ package com.kata.bankaccount.domain.model;
 
 import com.kata.bankaccount.domain.error.AccountThresholdException;
 import com.kata.bankaccount.domain.error.AccountTransactionException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
