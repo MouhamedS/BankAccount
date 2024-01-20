@@ -1,10 +1,14 @@
 package com.kata.bankaccount.infrastructure.dao.H2.dao;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "CLIENT")
@@ -16,10 +20,10 @@ public class ClientEntity {
     /**
      * Client id
      */
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLIENT_ID")
-    private Long Id;
+    private Long id;
 
     /**
      * Firstname of the client

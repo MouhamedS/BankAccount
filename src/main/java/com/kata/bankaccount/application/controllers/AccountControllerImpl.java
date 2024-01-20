@@ -1,9 +1,9 @@
-package com.kata.bankaccount.application;
+package com.kata.bankaccount.application.controllers;
 
 
 import com.kata.bankaccount.application.mapper.TransactionResourceMapper;
 import com.kata.bankaccount.application.resources.TransactionResource;
-import com.kata.bankaccount.domain.service.AccountService;
+import com.kata.bankaccount.domain.ports.incoming.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,8 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,29 +27,16 @@ import java.util.List;
 @Slf4j
 @RestController(value = "/api/v1/accounts")
 @RequiredArgsConstructor
-public class AccountController {
+public class AccountControllerImpl implements AccountController {
 
     private final AccountService accountService;
 
-    @Autowired
-    private TransactionResourceMapper transactionResourceMapper;
+    private final TransactionResourceMapper transactionResourceMapper;
 
-    @Operation(summary = "Deposit on bank account")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Deposit done"),
-            @ApiResponse(responseCode = "400", description = "Invalid Transaction", content = {
-                    @Content
-            }),
-            @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
-                    @Content
-            }),
-            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
-
-    })
     @PostMapping(value = "/{accountId}/clients/{clientId}/deposit/{amount}")
-    public void depositToAccount(@Parameter(description = "Account identification number",required = true, example = "1145") @PathVariable Long accountId,
-                                 @Parameter(description = "Client identification number",required = true, example = "1145") @PathVariable Long clientId,
-                                 @Parameter(description = "Amount to deposit into the account",required = true, example = "1500")@PathVariable BigDecimal amount) {
+    public void depositToAccount(@PathVariable Long accountId,
+                                 @PathVariable Long clientId,
+                                 @PathVariable BigDecimal amount) {
         log.info("API /accounts/{accountId}/clients/{clientId}/deposit/{amount} with parameters: " +
                 "{} , {}, {}", accountId, clientId, amount);
         this.accountService.deposit(amount, accountId, clientId);
@@ -66,7 +51,7 @@ public class AccountController {
             @ApiResponse(responseCode = "402", description = "Account or Client not Found", content = {
                     @Content
             }),
-            @ApiResponse(responseCode = "500", description = "Internal erro", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal error", content = @Content)
 
     })
     @PostMapping(value = "/{accountId}/clients/{clientId}/withdraw/{amount}")

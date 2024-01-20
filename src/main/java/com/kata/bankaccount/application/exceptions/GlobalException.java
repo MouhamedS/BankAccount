@@ -4,36 +4,42 @@ import com.kata.bankaccount.domain.error.AccountThresholdException;
 import com.kata.bankaccount.domain.error.AccountTransactionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-@Slf4j
 public class GlobalException extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler( DefaultControllerException.class)
-    public ResponseEntity<DefaultErrorMessage> handleDefaultError(DefaultControllerException e) {
-
-        log.info(e.getDefaultErrorMessage().getMessage());
-        return ResponseEntity.status(e.getDefaultErrorMessage().getStatus()).body(e.getDefaultErrorMessage());
+    @ExceptionHandler(DefaultControllerException.class)
+    public ProblemDetail handleDefaultError(DefaultControllerException e) {
+        HttpStatus status = e.getDefaultErrorMessage().getStatus();
+        String message = e.getDefaultErrorMessage().getMessage();
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, message);
+        problemDetail.setTitle(status.getReasonPhrase());
+        return problemDetail;
     }
 
-    @ExceptionHandler( {AccountThresholdException.class, AccountTransactionException.class})
-    public ResponseEntity<String> handleThresholdViolation(RuntimeException e) {
-
-        log.info(e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    @ExceptionHandler({AccountThresholdException.class, AccountTransactionException.class})
+    public ProblemDetail handleThresholdViolation(RuntimeException e) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String message = e.getMessage();
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, message);
+        problemDetail.setTitle(status.getReasonPhrase());
+        return problemDetail;
     }
 
-    @ExceptionHandler( RuntimeException.class)
-    public ResponseEntity<String> handleRuntime(AccountThresholdException e) {
+    @ExceptionHandler(RuntimeException.class)
+    public ProblemDetail handleRuntime(AccountThresholdException e) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        String message = e.getMessage();
 
-        log.info(e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, message);
+        problemDetail.setTitle(status.getReasonPhrase());
+
+        return problemDetail;
     }
-
-
-
 }

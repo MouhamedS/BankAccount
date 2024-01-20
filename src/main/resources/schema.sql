@@ -17,7 +17,6 @@ create table account (
         amount numeric(19,2),
         BALANCE_POST_TRANSACTION numeric(19,2),
         date timestamp,
-        client_id bigint,
         ACCOUNT_ID bigint
 
     );
@@ -27,10 +26,6 @@ create table account (
        foreign key (client_id)
        references client;
 
-    alter table transaction
-       add constraint foreign_key_client_transaction
-       foreign key (client_id)
-       references client;
 
     alter table transaction
        add constraint foreign_key_account_transaction

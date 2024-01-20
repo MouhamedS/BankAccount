@@ -1,22 +1,22 @@
-package com.kata.bankaccount.domain.service.impl;
+package com.kata.bankaccount.application.adapters;
 
-import com.kata.bankaccount.domain.Account;
-import com.kata.bankaccount.domain.Transaction;
-import com.kata.bankaccount.domain.repository.AccountRepository;
-import com.kata.bankaccount.domain.service.AccountService;
+import com.kata.bankaccount.domain.model.Account;
+import com.kata.bankaccount.domain.model.Transaction;
+import com.kata.bankaccount.domain.ports.incoming.AccountService;
+import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceAdapter implements AccountService {
 
     private final AccountRepository accountRepository;
 
@@ -25,11 +25,11 @@ public class AccountServiceImpl implements AccountService {
     public void deposit(BigDecimal amount, Long accountId, Long clientId) {
         log.info("Service deposit with amount {} accountId {} and clientId {}", amount, clientId, accountId);
         Account account = accountRepository.getAccountById(accountId);
-        if ( account != null && account.getClient().getId().equals(clientId)) {
+        if (account != null && account.getClient().id().equals(clientId)) {
 
             account.deposit(amount);
 
-           log.info("Result of the deposit {}",accountRepository.saveAccount(account));
+            log.info("Result of the deposit {}", accountRepository.saveAccount(account));
         }
     }
 
@@ -38,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     public boolean withdraw(BigDecimal amount, Long accountId, Long clientId) {
         log.info("Service withdraw with amount {} accountId {} and clientId {}", amount, clientId, accountId);
         Account account = accountRepository.getAccountById(accountId);
-        if (account != null && account.getClient().getId().equals(clientId)) {
+        if (account != null && account.getClient().id().equals(clientId)) {
             boolean result = account.withdraw(amount);
 
             log.info("Result  of the withdraw {}", accountRepository.saveAccount(account));
@@ -49,12 +49,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Transaction> transactions(Long accountId, Long clientId) {
-        log.info("Service fecth transactions with accountId {} and clientId {}", clientId, accountId);
+        log.info("Service fetch transactions with accountId {} and clientId {}", clientId, accountId);
         Account account = accountRepository.getAccountById(accountId);
-        if (account != null && account.getClient().getId().equals(clientId)) {
+        if (account != null && account.getClient().id().equals(clientId)) {
             return account.getTransactions();
         }
-        return null;
+        return new ArrayList<>();
     }
 
 

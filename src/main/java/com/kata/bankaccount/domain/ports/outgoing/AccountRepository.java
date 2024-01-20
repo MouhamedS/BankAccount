@@ -1,8 +1,6 @@
-package com.kata.bankaccount.domain.repository;
+package com.kata.bankaccount.domain.ports.outgoing;
 
-import com.kata.bankaccount.domain.Account;
-
-import java.util.Optional;
+import com.kata.bankaccount.domain.model.Account;
 
 public interface AccountRepository {
 
