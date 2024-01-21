@@ -2,8 +2,8 @@ package com.kata.bankaccount.application.adapters;
 
 import com.kata.bankaccount.domain.model.Account;
 import com.kata.bankaccount.domain.model.Transaction;
-import com.kata.bankaccount.domain.ports.incoming.AccountService;
-import com.kata.bankaccount.domain.ports.outgoing.AccountRepository;
+import com.kata.bankaccount.domain.ports.incoming.AccountIncomingPort;
+import com.kata.bankaccount.domain.ports.outgoing.AccountOutguoingPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,41 +16,38 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccountServiceAdapter implements AccountService {
+public class AccountIncomingAdapter implements AccountIncomingPort {
 
-    private final AccountRepository accountRepository;
+    private final AccountOutguoingPort accountOutguoingPort;
 
     @Override
     @Transactional
     public void deposit(BigDecimal amount, Long accountId, Long clientId) {
         log.info("Service deposit with amount {} accountId {} and clientId {}", amount, clientId, accountId);
-        Account account = accountRepository.getAccountById(accountId);
+        Account account = accountOutguoingPort.getAccountById(accountId);
         if (account != null && account.getClient().id().equals(clientId)) {
 
             account.deposit(amount);
 
-            log.info("Result of the deposit {}", accountRepository.saveAccount(account));
+            log.info("Result of the deposit {}", accountOutguoingPort.saveAccount(account));
         }
     }
 
     @Override
     @Transactional
-    public boolean withdraw(BigDecimal amount, Long accountId, Long clientId) {
+    public void withdraw(BigDecimal amount, Long accountId, Long clientId) {
         log.info("Service withdraw with amount {} accountId {} and clientId {}", amount, clientId, accountId);
-        Account account = accountRepository.getAccountById(accountId);
+        Account account = accountOutguoingPort.getAccountById(accountId);
         if (account != null && account.getClient().id().equals(clientId)) {
-            boolean result = account.withdraw(amount);
-
-            log.info("Result  of the withdraw {}", accountRepository.saveAccount(account));
-            return result;
+            account.withdraw(amount);
+            log.info("Result  of the withdraw {}", accountOutguoingPort.saveAccount(account));
         }
-        return false;
     }
 
     @Override
     public List<Transaction> transactions(Long accountId, Long clientId) {
         log.info("Service fetch transactions with accountId {} and clientId {}", clientId, accountId);
-        Account account = accountRepository.getAccountById(accountId);
+        Account account = accountOutguoingPort.getAccountById(accountId);
         if (account != null && account.getClient().id().equals(clientId)) {
             return account.getTransactions();
         }

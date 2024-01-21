@@ -5,7 +5,7 @@ import com.kata.bankaccount.domain.model.Transaction;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface AccountService {
+public interface AccountIncomingPort {
 
     /**
      * Method to deposit a certain on one account
@@ -21,9 +21,8 @@ public interface AccountService {
      * @param amount Amount to withdraw
      * @param accountId AccountID  to withdraw
      * @param clientId  ClientId
-     * @return True  if The withdrawal succeeded, false if the withdrawl  failed
      */
-    boolean withdraw(BigDecimal amount, Long accountId, Long clientId);
+    void withdraw(BigDecimal amount, Long accountId, Long clientId);
 
     /**
      * Get List of account's transactions

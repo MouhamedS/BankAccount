@@ -22,14 +22,10 @@ class AccountTests {
 
     private Account account;
 
-    private Client client;
-
-    private List<Transaction> transactions;
-
     @BeforeEach
     void init() {
-        client = new Client(1L, "Toto", "Titi");
-        transactions = new ArrayList<>();
+        Client client = new Client(1L, "Toto", "Titi");
+        List<Transaction> transactions = new ArrayList<>();
         account = new Account(1L, BigDecimal.valueOf(1500), BigDecimal.valueOf(100), client, transactions);
     }
 
@@ -39,17 +35,17 @@ class AccountTests {
         account.deposit(BigDecimal.valueOf(number));
         assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 + number));
         assertThat(account.getTransactions()).hasSize(1);
-        assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number));
+        assertThat(account.getTransactions().getFirst().amount()).isEqualTo(BigDecimal.valueOf(number));
     }
 
 
     @ParameterizedTest
     @ValueSource(ints = {1000, 300, 500, 700})
     void withdrawGoodAmount(int number) {
-        assertThat(account.withdraw(BigDecimal.valueOf(number))).isTrue();
+        account.withdraw(BigDecimal.valueOf(number));
         assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(1500 - number));
         assertThat(account.getTransactions()).hasSize(1);
-        assertThat(account.getTransactions().get(0).amount()).isEqualTo(BigDecimal.valueOf(number).negate());
+        assertThat(account.getTransactions().getFirst().amount()).isEqualTo(BigDecimal.valueOf(number).negate());
 
     }
 
