@@ -2,7 +2,9 @@ package com.kata.bankaccount.domain.model;
 
 import com.kata.bankaccount.domain.error.AccountThresholdException;
 import com.kata.bankaccount.domain.error.AccountTransactionException;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -50,7 +51,7 @@ public class Account {
         this.transactions.add(transaction);
     }
 
-    public boolean withdraw(BigDecimal amount) {
+    public void withdraw(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new AccountTransactionException("Cannot withdraw an amount less than 0");
         }
@@ -62,7 +63,5 @@ public class Account {
         Transaction transaction = new Transaction(null, amount.negate(), LocalDateTime.now(), balance);
 
         this.transactions.add(transaction);
-
-        return true;
     }
 }

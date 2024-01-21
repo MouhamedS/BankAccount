@@ -8,12 +8,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@Tag(name = "BankAccount API", description = "API to do some operations on bank account")
+@RequestMapping("/api/v1/accounts")
 public interface AccountController {
 
     @Operation(summary = "Deposit on bank account")
@@ -33,9 +39,10 @@ public interface AccountController {
             })
 
     })
-    void depositToAccount(@Parameter(description = "Account identification number", required = true, example = "1145") Long accountId,
-                          @Parameter(description = "Client identification number", required = true, example = "1145") Long clientId,
-                          @Parameter(description = "Amount to deposit into the account", required = true, example = "1500") BigDecimal amount);
+    @PostMapping(value = "/{accountId}/clients/{clientId}/deposit/{amount}")
+    void depositToAccount(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
+                          @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId,
+                          @Parameter(description = "Amount to deposit into the account", required = true, example = "1500")@PathVariable BigDecimal amount);
 
     @Operation(summary = "Withdraw from bank account")
     @ApiResponses(value = {
@@ -54,9 +61,10 @@ public interface AccountController {
             })
 
     })
-    void withdrawFromAccount(@Parameter(description = "Account identification number", required = true, example = "1145") Long accountId,
-                             @Parameter(description = "Client identification number", required = true, example = "1145") Long clientId,
-                             @Parameter(description = "Amount to withdraw from the account", required = true, example = "1500") BigDecimal amount);
+    @PostMapping(value = "/{accountId}/clients/{clientId}/withdraw/{amount}")
+    void withdrawFromAccount(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
+                             @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId,
+                             @Parameter(description = "Amount to withdraw from the account", required = true, example = "1500")@PathVariable BigDecimal amount);
 
     @Operation(summary = "Get list of the transactions")
     @ApiResponses(value = {
@@ -78,6 +86,7 @@ public interface AccountController {
             })
 
     })
-    List<TransactionResource> getAccountHistory(@Parameter(description = "Account identification number", required = true, example = "1145") Long accountId,
-                                                @Parameter(description = "Client identification number", required = true, example = "1145") Long clientId);
+    @GetMapping(value = "/{accountId}/clients/{clientId}")
+    List<TransactionResource> getAccountHistory(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
+                                                @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId);
 }

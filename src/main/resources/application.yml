@@ -38,3 +38,6 @@ spring:
         master: mymaster
         nodes: sentinel_1,sentinel_2,sentinel_3
       timeout: 600ms
+  docker:
+    compose:
+      enabled: false
