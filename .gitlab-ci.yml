@@ -3,15 +3,15 @@ cache:
     - .m2/repository/
 
 stages:
-  - build
   - test
+  - build
   - image
   - deploy
 build-job:
   stage: build
   image: maven:latest
   script:
-    - mvn clean package -Dmaven.test.skip=true
+    - mvn clean install --no-transfert-progress --batch-mode
   artifacts:
     paths:
       - target/
@@ -20,7 +20,7 @@ test-job:
   stage: test
   image: maven:latest
   script:
-    - mvn test
+    - mvn clean test
 
 build-image:
   stage: image
