@@ -1,5 +1,5 @@
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 ARG USER=1001
-FROM maven:3.9.6-eclipse-temurin-21-alpine as builder
 WORKDIR application
 COPY --chown=${USER} . .
 RUN mvn  clean package --no-transfer-progress --batch-mode
@@ -8,7 +8,8 @@ COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 #ENTRYPOINT ["java", "-jar", "/app.jar"]
 
-FROM eclipse-temurin:21.0.1_12-jre-alpine
+FROM eclipse-temurin:21.0.1_12-jre-alpine AS run
+ARG USER=1001
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
