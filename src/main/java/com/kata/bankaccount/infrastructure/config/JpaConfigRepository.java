@@ -1,8 +1,8 @@
 package com.kata.bankaccount.infrastructure.config;
 
-import com.kata.bankaccount.infrastructure.dao.H2.JpaRepository.AccountJpARepository;
+import com.kata.bankaccount.infrastructure.dao.h2.jpa_repository.AccountJpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories(basePackageClasses = AccountJpARepository.class)
+@EnableJpaRepositories(basePackageClasses = AccountJpaRepository.class)
 public class JpaConfigRepository {
 }
