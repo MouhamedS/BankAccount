@@ -1,6 +1,6 @@
 package com.kata.bankaccount.application.controllers;
 
-import com.kata.bankaccount.application.resources.TransactionResource;
+import com.kata.bankaccount.domain.ports.inputs.dtos.TransactionDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 @Tag(name = "BankAccount API", description = "API to do some operations on bank account")
 @RequestMapping("/api/v1/accounts")
 public interface AccountController {
@@ -39,10 +40,10 @@ public interface AccountController {
             })
 
     })
-    @PostMapping(value = "/{accountId}/clients/{clientId}/deposit/{amount}")
-    void depositToAccount(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
-                          @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId,
-                          @Parameter(description = "Amount to deposit into the account", required = true, example = "1500")@PathVariable BigDecimal amount);
+    @PostMapping(value = "/{accountReferenceNumber}/clients/{clientReferenceNumber}/deposit/{amount}")
+    void depositToAccount(@Parameter(description = "Account identification number", required = true, example = "1145") @PathVariable String accountReferenceNumber,
+                          @Parameter(description = "Client identification number", required = true, example = "1145") @PathVariable String clientReferenceNumber,
+                          @Parameter(description = "Amount to deposit into the account", required = true, example = "1500") @PathVariable BigDecimal amount);
 
     @Operation(summary = "Withdraw from bank account")
     @ApiResponses(value = {
@@ -61,16 +62,16 @@ public interface AccountController {
             })
 
     })
-    @PostMapping(value = "/{accountId}/clients/{clientId}/withdraw/{amount}")
-    void withdrawFromAccount(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
-                             @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId,
-                             @Parameter(description = "Amount to withdraw from the account", required = true, example = "1500")@PathVariable BigDecimal amount);
+    @PostMapping(value = "/{accountReferenceNumber}/clients/{clientReferenceNumber}/withdraw/{amount}")
+    void withdrawFromAccount(@Parameter(description = "Account identification number", required = true, example = "1145") @PathVariable String accountReferenceNumber,
+                             @Parameter(description = "Client identification number", required = true, example = "1145") @PathVariable String clientReferenceNumber,
+                             @Parameter(description = "Amount to withdraw from the account", required = true, example = "1500") @PathVariable BigDecimal amount);
 
     @Operation(summary = "Get list of the transactions")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deposit done", content = {
                     @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            array = @ArraySchema(schema = @Schema(implementation = TransactionResource.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = TransactionDTO.class)))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid Transaction", content = {
                     @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE
@@ -86,7 +87,6 @@ public interface AccountController {
             })
 
     })
-    @GetMapping(value = "/{accountId}/clients/{clientId}")
-    List<TransactionResource> getAccountHistory(@Parameter(description = "Account identification number", required = true, example = "1145")@PathVariable Long accountId,
-                                                @Parameter(description = "Client identification number", required = true, example = "1145")@PathVariable Long clientId);
+    @GetMapping(value = "/{accountReferenceNumber}/clients/{clientReferenceNumber}")
+    List<TransactionDTO> getAccountHistory(@Parameter(description = "Account identification number", required = true, example = "1145") @PathVariable String accountReferenceNumber);
 }
