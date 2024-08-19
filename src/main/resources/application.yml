@@ -28,7 +28,6 @@ spring:
       hibernate.format_sql: true
       hibernate.show_sql: true
       hibernate.cache.use_second_level_cache: false
-      hibernate.dialact: org.hibernate.dialect.H2Dialect
     database: H2
   data:
     redis:
